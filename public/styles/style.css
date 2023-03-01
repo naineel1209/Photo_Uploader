@@ -1,0 +1,161 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.25%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: aliceblue;
+
+    font-size: 1.5rem;
+}
+
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    padding: .5rem 2rem;
+
+    border-bottom: 1rem solid;
+    border-radius: 5px;
+}
+
+#title {
+    cursor: pointer;
+}
+
+.header button {
+    padding: 1rem 1.5rem;
+    background-color: white;
+    border: 2px solid turquoise;
+    border-radius: .5rem;
+    transition: all .3s ease-in-out;
+
+}
+
+#create:hover {
+    transform: scale(1.05);
+    transition: all .3s ease-in-out;
+
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.landing {
+    margin: 2rem 0 0 0;
+}
+
+.container {
+    margin: 1rem;
+    padding: 2rem;
+    width: 80%;
+    background: white;
+    border-radius: 4px;
+
+    /* display grid */
+    display: grid;
+    grid-template-columns: repeat(3, 2fr);
+    grid-gap: 1rem;
+    justify-content: space-around;
+}
+
+.image_block {
+    width: 80%;
+    border-radius: .5rem;
+    border: 2px solid;
+    padding: 1rem;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.image_block img {
+    width: 100%;
+    border-radius: .3rem;
+    transition: all .3s ease-in-out;
+}
+
+.image_block img:hover {
+    transition: all .3s ease-in-out;
+    transform: scale(1.03);
+}
+
+.credits {
+    margin: 1rem 0 .5rem 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+}
+
+.credits span {
+    font-size: larger;
+    font-weight: bolder;
+
+    display: block;
+}
+
+.download_btn {
+    display: block;
+    margin: 1rem auto;
+
+    padding: .5rem 1rem;
+    background-color: transparent;
+    border: 2px solid red;
+    color: red;
+    border-radius: .5rem;
+    transition: all .3s ease-in-out;
+}
+
+.download_btn:hover {
+    background-color: red;
+    border-color: red;
+    color: white;
+    transition: all .3s ease-in-out;
+    transform: scale(1.02);
+    overflow: hidden;
+
+    cursor: pointer;
+}
+
+@media only screen and (max-device-width: 800px) {
+
+    /* Styles for iPhone screens smaller than or equal to 480px wide */
+    body {
+        white-space: nowrap;
+        /* Prevent text from wrapping */
+    }
+
+    .header {
+        flex-direction: column;
+        text-align: center;
+        ;
+    }
+
+    .header>* {
+        margin: 1rem 0;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .image_block {
+        width: 100%;
+    }
+}

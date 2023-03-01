@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publish a Photo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Tilt+Neon&display=swap');
+
+        html {
+            font-size: 62.25%;
+            font-family: 'Tilt Neon', sans-serif;
+        }
+
+        body {
+            background-color: aliceblue;
+            font-size: 1.5rem;
+        }
+
+        .container form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 50%;
+        }
+
+        form label {
+            display: block;
+            margin: 1rem 0;
+        }
+
+        input {
+            border: 1px solid black;
+            background-color: white;
+            border-radius: .3rem;
+            padding: .5rem 1rem;
+        }
+
+        input[type="submit"],
+        .error button {
+            display: block;
+            width: 50%;
+            margin: 1rem auto;
+            border: 1px solid black;
+
+            cursor: pointer;
+            transition: all .3s ease-in-out;
+        }
+
+        input[type="submit"]:hover,
+        .error button:hover {
+            background-color: black;
+            color: white;
+            transition: all .3s ease-in-out;
+        }
+
+        .error {
+            width: -moz-fit-content;
+            width: fit-content;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Publish a Photo for Us!!!</h1>
+    <div class="container">
+        <form action="/api/v1/uploads" method="POST">
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name" required>
+
+            <label for="description">Description: </label>
+            <input type="text" name="description" id="description" required>
+
+            <label for="imageFile">File to Upload</label>
+            <input type="file" name="imageFile" id="imageFile" required>
+
+            <label for="publishedBy">Published By</label>
+            <input type="text" name="publishedBy" id="publishedBy" required>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div class="error">
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        if (axios && moment) console.log("Jesss");
+
+        const url = '/api/v1'
+        const imageFile = document.querySelector('#imageFile');
+        imageFile.value = ""; //clearing any earlier uploaded data
+
+        let imageSrc;
+        const error = document.querySelector('.error');
+        const submit = document.querySelector('input[type="submit"]');
+        const form = document.querySelector('form');
+
+        if (submit) console.log("Jess")
+        else console.log("No")
+
+        //handling the image after its selected.
+        imageFile.addEventListener('change', async (e) => {
+            const files = e.target.files[0];
+            const formData = new FormData();
+            formData.append('image', files);
+
+            error.innerHTML = `Loading the Data!!`
+            error.style.padding = '1rem';
+            submit.disabled = true;
+
+            const res = await axios.post(`${url}/uploads`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }).then(res => res.data);
+
+            if (res.status === 'ok') {
+                error.innerHTML = "Loaded the Data!!";
+            } else {
+                error.innerHTML = "Error Loading the file try again sometime later!";
+            }
+
+            submit.disabled = false;
+            setTimeout(() => {
+                error.style.padding = "0";
+                error.innerHTML = ``;
+            }, 3000);
+
+            //setting the image source;
+            console.log(res.src);
+            imageSrc = res.src;
+        });
+
+        //handling the form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            formData.set('image', imageSrc);
+            formData.delete('imageFile');
+
+            const res = await axios.postForm(`${url}/photos`, formData).then(res => res.data);
+
+            if (res.status === 'ok') {
+                error.style.padding = '1rem';
+                error.style.background = "lightgreen"
+                error.innerHTML = "Successfully Added the Data! <button><a href='/' style='text-decoration: none; font-weight: `bolder` '>View All Images</a></button> ";
+            } else {
+                error.style.padding = '1rem';
+                error.style.background = "lightred"
+                error.innerHTML = "Failed to Submit the data. Server error. Try again Later!"
+            }
+
+            setTimeout(() => {
+                error.innerHTML = "";
+                error.style.background = "white";
+                error.style.padding = "0";
+            }, 5000);
+        })
+
+    </script>
+</body>
+
+</html>

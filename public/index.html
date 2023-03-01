@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Tilt+Neon&display=swap');
+
+        html,
+        body {
+            font-family: 'Tilt Neon', sans-serif;
+        }
+    </style>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="group_1">
+            <h1 id="title">Photo Sharer</h1>
+            <p>Share your photos to the world from your Computer!!</p>
+        </div>
+        <button id="create" type="button" onclick="window.location= '/create'">SUBMIT PHOTOS HERE!</button>
+    </div>
+
+    <div class="landing">
+        <h1>
+            !&#161; SUBMISSIONS &#161;!
+        </h1>
+    </div>
+    <div class="container">
+        <div class="image_block">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1280px-Flag_of_India.svg.png"
+                alt="" srcset="">
+            <div class="credits">
+
+                Published By: <span id="publishedBy">NAINEEL SOYANTAR</span>
+                <br>
+                Published At: <span id="publishedAt"></span>
+                <br>
+                Description: <span id="description">A picture of Mexican Jalapenos</span>
+
+                <div class="">
+                    <button type="button" class="download_btn">DOWNLOAD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./scripts/browser-app.js"></script>
+</body>
+
+</html>
